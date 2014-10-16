@@ -2,14 +2,13 @@ box: wercker-labs/docker
 no-response-timeout: 10
 build:
   steps:
-    - pip-install:
-        requirements_file: ""
-        packages_list: "ansible"
     - script:
-      name: install ansible
-      code: |-
-        type ansible || { echo "ansible not found"; exit 1; }
-     - script:
-         name: docker pull
-         code: |
-           docker pull centos:centos6
+        name: install ansible
+        code: |-
+          sudo apt-get install -y python-pip
+          sudo pip install ansible
+          ansible --version
+    - script:
+        name: docker pull
+        code: |
+          docker pull centos:centos6
